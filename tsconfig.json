@@ -1,9 +1,19 @@
 {
   "compilerOptions": {
-    //strict type checking.
+    //Strict type checking.
     "strict": true,
     //Allow using the latest ECMAScript proposed features and libraries.
-    "lib": ["DOM", "ESNext"]
+    "lib": ["DOM", "ESNext"],
+    //Compile types.
+    "typeRoots": ["./src/types"],
+    "baseUrl": "./" /* Base directory to resolve non-absolute module names. */,
+    "paths": {
+      "@Components/*": ["src/components/*"],
+      "@Hooks/*": ["src/hooks/*"],
+      "@Screens/*": ["src/Screens/*"],
+      "@Api/*": ["src/Api/*"],
+      "@Models*": ["src/models/*"]
+    }
   },
   "extends": "expo/tsconfig.base"
 }
