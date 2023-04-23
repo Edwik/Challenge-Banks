@@ -1,46 +1,11 @@
 import { StatusBar } from "expo-status-bar";
 import { FC, useState } from "react";
 import _ from "lodash";
-import {
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-  ScrollView,
-  View,
-  Image,
-} from "react-native";
+import { Text, SafeAreaView, ScrollView, View } from "react-native";
 import { useListOfBanks } from "@Hooks/useListOfbanks";
-import { ItemProps } from "../../Types/itemProps";
 import { BankModel } from "@ModelsbankModel";
 import { styles } from "./styles";
-
-const Item = ({ item, onPress, backgroundColor, textColor }: ItemProps) => (
-  <TouchableOpacity
-    onPress={onPress}
-    style={[styles.item, { backgroundColor }]}
-  >
-    <Image
-      style={styles.logo}
-      source={{
-        uri: item.url,
-      }}
-    />
-    <View style={styles.section}>
-      <View style={styles.headerSection}>
-        <Text style={[styles.title, { color: textColor }]}>
-          {item.bankName}
-        </Text>
-        <View style={styles.containerAge}>
-          <Text style={[styles.age]}>Age: {item.age}</Text>
-        </View>
-      </View>
-
-      <Text style={[styles.description, { color: textColor }]}>
-        {item.description}
-      </Text>
-    </View>
-  </TouchableOpacity>
-);
+import { CardComponent } from "@Components/atom/CardComponent";
 
 const BanksScreen: FC = () => {
   const { DATA } = useListOfBanks();
@@ -51,7 +16,7 @@ const BanksScreen: FC = () => {
     const color = item.bankName === selected ? "white" : "black";
 
     return (
-      <Item
+      <CardComponent
         item={item}
         onPress={() => setSelected(item.bankName)}
         backgroundColor={backgroundColor}
