@@ -9,10 +9,11 @@
     "baseUrl": "./" /* Base directory to resolve non-absolute module names. */,
     "paths": {
       "@Components/*": ["src/components/*"],
-      "@Hooks/*": ["src/hooks/*"],
+      "@Hooks/*": ["src/Hooks/*"],
       "@Screens/*": ["src/Screens/*"],
       "@Api/*": ["src/Api/*"],
-      "@Models*": ["src/models/*"]
+      "@Models*": ["src/Models/*"],
+      "@Utils/*": ["src/Utils/*"]
     }
   },
   "extends": "expo/tsconfig.base"

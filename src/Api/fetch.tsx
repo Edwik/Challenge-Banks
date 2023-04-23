@@ -34,7 +34,6 @@ export const Fetch = async (
     return {
       response: response,
       status: response?.status,
-      data: response?.data,
     };
   } catch (error: any) {
     return { error: error };

@@ -1,23 +1,42 @@
 import { useEffect, useState } from "react";
 import { Fetch, Method } from "@Api/fetch";
 import { Get } from "@Api/routes";
+import _ from "lodash";
+import { setStorage, getStorege } from "@Utils/storage";
 
 const useData = () => {
-  const [data, setData] = useState({});
+  const [DATA, setData] = useState([]);
 
   useEffect(() => {
-    getData(Method.GET, Get.ListOfBanks);
+    // _.isEmpty(getStorege())
+    //   ? setData(getStorege())
+    //   : getData(Method.GET, Get.ListOfBanks);
+    handleStorage();
   }, []);
+
+  const handleStorage = () => {
+    console.log("1. ", getStorege());
+    if (_.isEmpty(getStorege())) {
+      console.log("Esta vacio");
+      saveData();
+      console.log("se lleno");
+    } else {
+      console.log("Esta lleno");
+      setData(getStorege());
+    }
+
+    setStorage(getData(Method.GET, Get.ListOfBanks));
+  };
 
   //Generic data collection
   const getData = async (Method: Method, Url: string) => {
-    const { status, data } = await Fetch(Method, Url);
+    const { status, response } = await Fetch(Method, Url);
     if (status) {
-      setData(data.data);
+      setData(response.data);
     }
   };
 
-  return { data };
+  return { DATA };
 };
 
 export { useData as useListOfBanks };
