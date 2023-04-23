@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    //strict type checking.
+    "strict": true,
+    //Allow using the latest ECMAScript proposed features and libraries.
+    "lib": ["DOM", "ESNext"]
+  },
+  "extends": "expo/tsconfig.base"
+}
