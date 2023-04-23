@@ -1,11 +1,13 @@
 import { StatusBar } from "expo-status-bar";
 import { FC, useState } from "react";
+import _ from "lodash";
 import {
   StyleSheet,
   Text,
-  FlatList,
   SafeAreaView,
   TouchableOpacity,
+  ScrollView,
+  View,
 } from "react-native";
 import { useListOfBanks } from "@Hooks/useListOfbanks";
 import { BankModel } from "@ModelsbankModel";
@@ -28,17 +30,16 @@ const Item = ({ item, onPress, backgroundColor, textColor }: ItemProps) => (
 
 const App: FC = () => {
   const { DATA } = useListOfBanks();
-  const [selectedId, setSelectedId] = useState<string>();
+  const [selected, setSelected] = useState<string>();
 
-  const renderItem = ({ item }: { item: BankModel }) => {
-    const backgroundColor =
-      item.bankName === selectedId ? "#6e3b6e" : "#f9c2ff";
-    const color = item.bankName === selectedId ? "white" : "black";
+  const renderItem = (item: BankModel) => {
+    const backgroundColor = item.bankName === selected ? "#6e3b6e" : "#f9c2ff";
+    const color = item.bankName === selected ? "white" : "black";
 
     return (
       <Item
         item={item}
-        onPress={() => setSelectedId(item.bankName)}
+        onPress={() => setSelected(item.bankName)}
         backgroundColor={backgroundColor}
         textColor={color}
       />
@@ -49,12 +50,15 @@ const App: FC = () => {
     <SafeAreaView style={styles.container}>
       <Text>Welcome to List of the Banks</Text>
       <StatusBar style="auto" />
-      <FlatList
-        data={DATA}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => `key${index}`}
-        extraData={selectedId}
-      />
+      <ScrollView>
+        {!_.isEmpty(DATA) && Array.isArray(DATA) ? (
+          DATA.map((item: BankModel, index: number) => {
+            return <View key={index}>{renderItem(item)}</View>;
+          })
+        ) : (
+          <Text>Empty Screen</Text>
+        )}
+      </ScrollView>
     </SafeAreaView>
   );
 };
